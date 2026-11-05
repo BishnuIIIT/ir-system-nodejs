@@ -3,368 +3,734 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Information Retrieval System — Dark &amp; Light Theme</title>
+  <title>IR Search — Intelligent Information Retrieval Platform</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app-wrapper">
-    <!-- APP HEADER -->
-    <header class="app-header">
-      <div class="header-brand">
-        <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            <path d="M11 8v6M8 11h6"></path>
-          </svg>
+  <div class="app-layout">
+    <!-- MOBILE TOPBAR -->
+    <header class="mobile-nav-bar">
+      <button type="button" class="icon-action-btn" id="mobileDrawerOpenBtn" aria-label="Open Navigation Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="mobile-logo-brand">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><path d="M11 8v6M8 11h6"></path></svg>
         </div>
-        <div class="brand-text">
-          <h1 class="brand-title">Information Retrieval System</h1>
-          <p class="brand-subtitle">Positional Inverted Index • Permuterm Wildcards • TF-IDF Cosine Ranking • PDF Ingestion</p>
-        </div>
+        <span class="logo-text">IR Search</span>
       </div>
-
-      <div class="header-controls">
-        <div class="status-indicator-pill">
-          <span class="status-dot"></span>
-          <span>System Online</span>
-        </div>
-
-        <!-- PROMINENT THEME TOGGLE SWITCH IN GUI -->
-        <div class="theme-switch-container" title="Select GUI Theme">
-          <button type="button" class="theme-toggle-btn active" id="btnThemeDark" data-theme="dark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <span>Dark</span>
-          </button>
-          <button type="button" class="theme-toggle-btn" id="btnThemeLight" data-theme="light">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <span>Light</span>
-          </button>
-        </div>
-      </div>
+      <button type="button" class="icon-action-btn" id="mobileThemeToggleBtn" aria-label="Toggle Theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
     </header>
 
-    <!-- NAVIGATION TABS -->
-    <nav class="nav-tabs-bar">
-      <button type="button" class="tab-button active" data-tab="tab-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <span>Search Engine</span>
-      </button>
-      <button type="button" class="tab-button" data-tab="tab-upload">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-        <span>PDF Upload &amp; Corpus</span>
-        <span class="tab-count-badge" id="tabDocCount">5</span>
-      </button>
-      <button type="button" class="tab-button" data-tab="tab-explorer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-        <span>Index Explorer</span>
-      </button>
-      <button type="button" class="tab-button" data-tab="tab-history">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-        <span>History</span>
-        <span class="tab-count-badge muted" id="tabHistoryCount">0</span>
-      </button>
-    </nav>
+    <!-- MOBILE DRAWER BACKDROP -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
 
-    <!-- MAIN VIEWS CONTAINER -->
-    <main class="main-content-area">
-      <!-- ==============================================================
-           TAB 1: SEARCH ENGINE
-           ============================================================== -->
-      <section class="tab-panel active" id="tab-search">
-        <div class="search-card">
-          <!-- Mode Selector -->
-          <div class="mode-selector-pillbox">
-            <label class="mode-pill-label">
-              <input type="radio" name="searchMode" value="boolean" checked>
-              <span class="mode-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
-                <span>Boolean Retrieval</span>
-              </span>
-            </label>
-            <label class="mode-pill-label">
-              <input type="radio" name="searchMode" value="wildcard">
-              <span class="mode-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                <span>Wildcard Search</span>
-              </span>
-            </label>
-            <label class="mode-pill-label">
-              <input type="radio" name="searchMode" value="ranked">
-              <span class="mode-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                <span>Ranked (TF-IDF)</span>
-              </span>
-            </label>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar-container" id="appSidebar">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-brand-header">
+        <a href="#search" class="brand-link" data-view="search">
+          <div class="brand-logo-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><path d="M11 8v6M8 11h6"></path></svg>
+          </div>
+          <div class="brand-identity">
+            <span class="brand-title">IR Search</span>
+            <span class="brand-edition">Enterprise Platform</span>
+          </div>
+        </a>
+        <button type="button" class="sidebar-toggle-btn" id="sidebarCollapseToggle" title="Toggle Sidebar Width">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav-list">
+        <div class="nav-group-header">MAIN</div>
+
+        <button type="button" class="nav-link-btn" data-view="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span class="link-label">Dashboard</span>
+        </button>
+
+        <button type="button" class="nav-link-btn active" data-view="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="link-label">Search Engine</span>
+          <span class="key-hint">Ctrl K</span>
+        </button>
+
+        <button type="button" class="nav-link-btn" data-view="library">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span class="link-label">Document Library</span>
+          <span class="nav-badge-count" id="sidebarDocBadge">5</span>
+        </button>
+
+        <div class="nav-group-header">ANALYSIS &amp; INDEX</div>
+
+        <button type="button" class="nav-link-btn" data-view="explorer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          <span class="link-label">Index Explorer</span>
+        </button>
+
+        <button type="button" class="nav-link-btn" data-view="history">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span class="link-label">Query History</span>
+          <span class="nav-badge-count muted" id="sidebarHistoryBadge">0</span>
+        </button>
+
+        <div class="nav-group-header">CONFIGURATION</div>
+
+        <button type="button" class="nav-link-btn" data-view="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span class="link-label">Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-system-footer">
+        <div class="system-health-indicator">
+          <span class="health-pulse-dot"></span>
+          <div class="health-meta">
+            <span class="health-title">System Engine</span>
+            <span class="health-version">v2.4.0 • Node.js</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN APPLICATION VIEWPORT -->
+    <div class="app-main-viewport">
+      <!-- TOP APPLICATION HEADER -->
+      <header class="app-top-header">
+        <div class="topbar-nav-trail">
+          <span class="trail-root">IR Search</span>
+          <span class="trail-slash">/</span>
+          <span class="trail-active" id="topbarBreadcrumb">Search Engine</span>
+        </div>
+
+        <div class="topbar-actions-group">
+          <!-- Global Search Shortcut Bar -->
+          <div class="global-search-shortcut" id="globalSearchTrigger" title="Quick Search (Ctrl + K)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>Search corpus...</span>
+            <kbd class="kbd-pill">Ctrl K</kbd>
           </div>
 
-          <!-- Search Input Form -->
-          <form id="searchForm" class="search-form" onsubmit="return false;">
-            <div class="search-input-wrapper">
-              <svg class="search-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <input
-                type="text"
-                id="searchInput"
-                class="search-input"
-                placeholder="Search query (e.g., computer AND science)..."
-                autocomplete="off"
-                spellcheck="false"
-                autofocus
-              >
-              <button type="button" id="clearSearchBtn" class="clear-btn" title="Clear query (Esc)">✕</button>
-            </div>
-            <div class="search-actions">
-              <button type="submit" id="searchSubmitBtn" class="btn btn-primary">
-                <span>Search</span>
-                <kbd>↵</kbd>
-              </button>
-              <button type="button" id="searchResetBtn" class="btn btn-secondary">Clear</button>
-            </div>
-          </form>
+          <!-- Engine Status Badge -->
+          <div class="engine-live-badge">
+            <span class="live-dot"></span>
+            <span>Online</span>
+          </div>
 
-          <!-- Quick Query Suggestions & Scope Filter -->
-          <div class="search-extras-bar">
-            <div class="presets-box">
-              <span class="extras-label">Quick Suggestions:</span>
-              <div id="queryPillsList" class="query-pills-list"></div>
-            </div>
-            <div class="scope-box">
-              <span class="extras-label">Scope:</span>
-              <select id="searchScopeSelect" class="form-select-sm">
-                <option value="all">Entire Corpus (All)</option>
-                <option value="sample">Sample Corpus Only</option>
-                <option value="pdf">Uploaded PDFs Only</option>
-              </select>
+          <!-- Dark / Light Theme Toggle Switch -->
+          <div class="theme-switcher-control" title="Toggle Theme">
+            <button type="button" class="theme-switch-btn active" id="btnThemeDark" data-theme-val="dark" title="Dark Theme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button type="button" class="theme-switch-btn" id="btnThemeLight" data-theme-val="light" title="Light Theme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+          </div>
+
+          <!-- User / Admin Profile Badge -->
+          <div class="user-profile-badge">
+            <div class="avatar-circle">IR</div>
+            <div class="user-meta">
+              <span class="user-name">Engineer</span>
+              <span class="user-role">Administrator</span>
             </div>
           </div>
         </div>
+      </header>
 
-        <!-- Search Status Feedback -->
-        <div id="searchLoadingIndicator" class="feedback-box hidden">
-          <div class="spinner-ring"></div>
-          <span>Evaluating posting lists and ranking relevance vectors...</span>
-        </div>
-
-        <div id="searchErrorBanner" class="alert-banner alert-danger hidden">
-          <span id="searchErrorMessage">Query evaluation error.</span>
-        </div>
-
-        <!-- Search Results Section -->
-        <section class="results-container">
-          <div id="resultsMetaBar" class="results-meta-bar hidden">
-            <div class="meta-left">
-              <h2 id="resultsCountTitle" class="results-title">0 documents found</h2>
-              <span id="resultsLatencyTag" class="latency-tag">0.00 ms</span>
+      <!-- SCROLLABLE PAGE CONTAINER -->
+      <div class="page-content-wrapper">
+        <!-- ==============================================================
+             PAGE 1: SEARCH ENGINE (MAIN FOCUS)
+             ============================================================== -->
+        <section class="page-panel active" id="page-search">
+          <!-- Hero Search Header -->
+          <div class="search-hero-banner">
+            <div class="hero-badge-pill">
+              <span class="status-indicator-dot"></span>
+              <span>Positional Index &amp; TF-IDF Vector Space Model</span>
             </div>
-            <div id="wildcardExpansionBox" class="wildcard-expansions hidden">
-              <span class="expansion-label">Permuterm Expansions:</span>
-              <div id="expansionTagsList" class="expansion-tags"></div>
+            <h1 class="search-hero-title">Intelligent Information Retrieval</h1>
+            <p class="search-hero-subtitle">Search, discover, and retrieve relevant information from your document collection with sub-millisecond precision.</p>
+
+            <!-- Search Mode Switcher Tabs -->
+            <div class="search-modes-container">
+              <label class="mode-pill-option">
+                <input type="radio" name="searchMode" value="boolean" checked>
+                <span class="mode-pill-button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                  <span>Boolean Retrieval</span>
+                </span>
+              </label>
+              <label class="mode-pill-option">
+                <input type="radio" name="searchMode" value="wildcard">
+                <span class="mode-pill-button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <span>Wildcard Search</span>
+                </span>
+              </label>
+              <label class="mode-pill-option">
+                <input type="radio" name="searchMode" value="ranked">
+                <span class="mode-pill-button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                  <span>Ranked Retrieval (TF-IDF)</span>
+                </span>
+              </label>
+            </div>
+
+            <!-- Primary Command Search Console -->
+            <form id="searchConsoleForm" class="search-console-form" onsubmit="return false;">
+              <div class="command-input-container">
+                <div class="search-prefix-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <input
+                  type="text"
+                  id="mainSearchQueryInput"
+                  class="command-search-input"
+                  placeholder="Search your documents... Try machine learning, information retrieval, or comput*"
+                  autocomplete="off"
+                  spellcheck="false"
+                  autofocus
+                >
+                <button type="button" id="clearSearchQueryBtn" class="query-clear-icon-btn" title="Clear query (Esc)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <button type="submit" id="triggerSearchBtn" class="command-search-btn">
+                  <span>Search</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </div>
+            </form>
+
+            <!-- Query Suggestions & Filters Bar -->
+            <div class="search-meta-controls-bar">
+              <div class="query-presets-wrapper">
+                <span class="control-label">Examples:</span>
+                <div id="queryPresetsContainer" class="preset-chips-flex"></div>
+              </div>
+
+              <div class="scope-filter-wrapper">
+                <span class="control-label">Corpus:</span>
+                <select id="searchCorpusScopeSelect" class="styled-dropdown-select">
+                  <option value="all">Entire Corpus (All)</option>
+                  <option value="sample">Sample Corpus Only</option>
+                  <option value="pdf">Uploaded PDFs Only</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <div id="searchResultsList" class="results-card-stack">
-            <div class="empty-state-card">
-              <div class="empty-icon-art">🔍</div>
-              <h3>Ready to Search</h3>
-              <p>Type a keyword above, use Boolean operators (<code>AND</code>, <code>OR</code>, <code>NOT</code>), wildcards (<code>*</code>, <code>?</code>), or click any suggestion pill.</p>
+          <!-- Search Feedback: Loader -->
+          <div id="searchLoadingBox" class="feedback-container hidden">
+            <div class="loader-ring-pulse"></div>
+            <span class="feedback-text">Evaluating inverted index and computing relevance vectors...</span>
+          </div>
+
+          <!-- Search Feedback: Error -->
+          <div id="searchErrorNotice" class="system-alert-notice danger hidden">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span id="searchErrorNoticeText">Search query evaluation failed.</span>
+          </div>
+
+          <!-- Search Results Viewport -->
+          <div class="search-results-viewport">
+            <!-- Results Header / Summary Bar -->
+            <div id="resultsSummaryHeader" class="results-header-summary hidden">
+              <div class="summary-count-group">
+                <h3 id="resultsCountHeader" class="results-count-title">0 documents found</h3>
+                <span id="resultsLatencyHeader" class="latency-pill">0.00 ms</span>
+              </div>
+              <div id="wildcardExpansionsRow" class="wildcard-expansions-row hidden">
+                <span class="expansions-label">Permuterm Expansions:</span>
+                <div id="wildcardTagsList" class="expansions-tags-list"></div>
+              </div>
+            </div>
+
+            <!-- Results Stack -->
+            <div id="searchResultsCardStack" class="results-cards-stream">
+              <div class="results-empty-canvas">
+                <div class="empty-canvas-art">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                </div>
+                <h3>Ready to Query Corpus</h3>
+                <p>Enter search terms above, or click one of the preset queries. Supports Boolean expressions, wildcard expansions, and TF-IDF ranked relevance.</p>
+              </div>
             </div>
           </div>
         </section>
-      </section>
 
-      <!-- ==============================================================
-           TAB 2: PDF UPLOAD & CORPUS MANAGEMENT
-           ============================================================== -->
-      <section class="tab-panel" id="tab-upload">
-        <!-- PDF Upload Card -->
-        <div class="content-card upload-section">
-          <div class="card-header-bar">
+        <!-- ==============================================================
+             PAGE 2: DASHBOARD ANALYTICS
+             ============================================================== -->
+        <section class="page-panel" id="page-dashboard">
+          <div class="dashboard-header-area">
             <div>
-              <h2 class="card-heading">Upload Local PDF Documents</h2>
-              <p class="card-subtext">Add PDF files from any folder on your computer to incrementally index their text in real-time without restarting the server.</p>
+              <h1 class="page-main-heading">System Overview &amp; Analytics</h1>
+              <p class="page-subheading">Real-time status of your Information Retrieval engine, indexed vocabulary, and query activity.</p>
             </div>
-            <span class="badge-pill cyan">Max 100 GB / PDF</span>
+            <button type="button" class="btn btn-secondary btn-sm" id="dashboardRefreshBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+              <span>Refresh Metrics</span>
+            </button>
           </div>
 
-          <!-- Dropzone -->
-          <div class="upload-dropzone" id="uploadDropzone">
-            <input type="file" id="pdfFileInput" accept="application/pdf" multiple class="hidden-file-input">
-            <div class="dropzone-icon">📥</div>
-            <div class="dropzone-text">
-              <strong>Drag and drop PDF documents here</strong>
-              <span>or choose files from your local system</span>
+          <!-- 4 Main Metric Cards -->
+          <div class="metrics-four-grid">
+            <div class="metric-glass-card">
+              <div class="metric-card-top">
+                <span class="metric-label">Total Documents</span>
+                <div class="metric-icon-wrap violet">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                </div>
+              </div>
+              <div class="metric-number-display" id="dashTotalDocs">5</div>
+              <div class="metric-card-bottom">
+                <span class="badge-tag success" id="dashDocsBreakdown">5 Sample Corpus</span>
+                <span class="metric-caption">In-memory index</span>
+              </div>
             </div>
-            <button type="button" class="btn btn-outline" id="browsePdfBtn">Browse Local Files</button>
+
+            <div class="metric-glass-card">
+              <div class="metric-card-top">
+                <span class="metric-label">Total Indexed Terms</span>
+                <div class="metric-icon-wrap cyan">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                </div>
+              </div>
+              <div class="metric-number-display" id="dashVocabularyCount">236</div>
+              <div class="metric-card-bottom">
+                <span class="badge-tag cyan">Unique Tokens</span>
+                <span class="metric-caption">Normalized vocabulary</span>
+              </div>
+            </div>
+
+            <div class="metric-glass-card">
+              <div class="metric-card-top">
+                <span class="metric-label">Total Search Queries</span>
+                <div class="metric-icon-wrap green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+              </div>
+              <div class="metric-number-display" id="dashTotalQueries">0</div>
+              <div class="metric-card-bottom">
+                <span class="badge-tag green">Session Queries</span>
+                <span class="metric-caption">Live search telemetry</span>
+              </div>
+            </div>
+
+            <div class="metric-glass-card">
+              <div class="metric-card-top">
+                <span class="metric-label">Uploaded PDF Documents</span>
+                <div class="metric-icon-wrap amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+              </div>
+              <div class="metric-number-display" id="dashUploadedPdfs">0</div>
+              <div class="metric-card-bottom">
+                <span class="badge-tag amber">100 GB Supported</span>
+                <span class="metric-caption">Incremental parser</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Selected Files Queue -->
-          <div id="stagedFilesArea" class="staged-area hidden">
-            <div class="staged-header">
-              <span id="stagedCountLabel" class="staged-title">0 files ready for ingestion</span>
-              <button type="button" id="clearStagedBtn" class="link-btn danger">Clear Selection</button>
+          <!-- Dual Section Grid -->
+          <div class="dashboard-dual-grid">
+            <!-- Left: Recently Added Documents -->
+            <div class="dashboard-panel-card">
+              <div class="panel-card-header">
+                <div class="panel-title-with-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                  <h3>Active Document Corpus Snapshot</h3>
+                </div>
+                <button type="button" class="inline-link-btn" id="dashGoToLibraryBtn">Open Library →</button>
+              </div>
+              <p class="panel-card-desc">Documents currently parsed and indexed into posting lists.</p>
+
+              <div class="recent-docs-stack" id="dashRecentDocsContainer">
+                <div class="skeleton-shimmer-row"></div>
+                <div class="skeleton-shimmer-row"></div>
+                <div class="skeleton-shimmer-row"></div>
+              </div>
             </div>
-            <div id="stagedFilesList" class="staged-list"></div>
-            <div class="staged-footer">
-              <button type="button" id="submitUploadBtn" class="btn btn-primary btn-lg">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                <span>Upload &amp; Add to Index</span>
+
+            <!-- Right: IR Engine Architecture Status -->
+            <div class="dashboard-panel-card">
+              <div class="panel-card-header">
+                <div class="panel-title-with-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                  <h3>IR Retrieval Subsystems</h3>
+                </div>
+                <span class="badge-pill violet">Core Operational</span>
+              </div>
+              <p class="panel-card-desc">Operational pipeline specifications powering the information retrieval system.</p>
+
+              <div class="architecture-specs-stack">
+                <div class="arch-spec-row">
+                  <div class="spec-dot violet"></div>
+                  <div class="spec-text">
+                    <strong>Positional Inverted Index</strong>
+                    <p>Maps normalized vocabulary words to document IDs with exact word offset arrays for phrase lookups.</p>
+                  </div>
+                </div>
+                <div class="arch-spec-row">
+                  <div class="spec-dot cyan"></div>
+                  <div class="spec-text">
+                    <strong>Permuterm Wildcard Index</strong>
+                    <p>Appends <code>$</code> sentinel and rotates words to support trailing (<code>comput*</code>), leading (<code>*tion</code>), and middle (<code>te?t</code>) wildcards.</p>
+                  </div>
+                </div>
+                <div class="arch-spec-row">
+                  <div class="spec-dot green"></div>
+                  <div class="spec-text">
+                    <strong>TF-IDF &amp; Cosine Similarity Ranking</strong>
+                    <p>Vector Space Model using logarithmic Term Frequency and smoothed Inverse Document Frequency relevance scores.</p>
+                  </div>
+                </div>
+                <div class="arch-spec-row">
+                  <div class="spec-dot amber"></div>
+                  <div class="spec-text">
+                    <strong>Boolean Shunting-Yard Evaluator</strong>
+                    <p>Converts infix expressions with <code>AND</code>, <code>OR</code>, <code>NOT</code>, and parentheses into RPN for set operations.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             PAGE 3: DOCUMENT LIBRARY & PDF UPLOAD
+             ============================================================== -->
+        <section class="page-panel" id="page-library">
+          <!-- Upload Dropzone Card -->
+          <div class="standard-panel-card upload-dropzone-card">
+            <div class="panel-card-header">
+              <div>
+                <h2 class="panel-card-title">Add Documents to Your Corpus</h2>
+                <p class="panel-card-desc">Upload PDF files from any folder on your computer. Text is extracted, tokenized, and indexed into memory immediately without server restarts.</p>
+              </div>
+              <div class="badge-group-wrap">
+                <span class="badge-pill cyan">Max 100 GB / File</span>
+                <span class="badge-pill violet">Multi-PDF Support</span>
+              </div>
+            </div>
+
+            <!-- Drag & Drop Target -->
+            <div class="drag-upload-dropzone" id="libraryDropzone">
+              <input type="file" id="libraryPdfFileInput" accept="application/pdf" multiple class="hidden-input-file">
+              <div class="dropzone-art-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+              </div>
+              <div class="dropzone-text-block">
+                <strong class="dropzone-bold">Choose or drag &amp; drop PDF documents here</strong>
+                <span class="dropzone-muted">Extracts plain text across multi-page PDFs</span>
+              </div>
+              <button type="button" class="btn btn-outline" id="browsePdfFilesBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                <span>Browse Files</span>
               </button>
             </div>
-          </div>
 
-          <!-- Progress Bar -->
-          <div id="uploadProgressBox" class="progress-box hidden">
-            <div class="progress-track">
-              <div id="uploadProgressBar" class="progress-fill" style="width: 0%"></div>
-            </div>
-            <div class="progress-labels">
-              <span id="progressStepText">Uploading file stream...</span>
-              <span id="progressPercentText">0%</span>
-            </div>
-          </div>
-
-          <!-- Upload Status Banner -->
-          <div id="uploadAlertBanner" class="alert-banner hidden"></div>
-        </div>
-
-        <!-- Document Library Table Card -->
-        <div class="content-card library-section">
-          <div class="card-header-bar">
-            <div>
-              <h2 class="card-heading">Indexed Document Corpus</h2>
-              <p class="card-subtext">Manage active corpus documents. Uploaded PDFs can be deleted at any time, while sample corpus documents remain protected.</p>
-            </div>
-            <button type="button" class="btn btn-secondary btn-sm" id="refreshCorpusBtn">↻ Refresh List</button>
-          </div>
-
-          <!-- Filter Bar -->
-          <div class="corpus-toolbar">
-            <input type="text" id="corpusSearchInput" placeholder="Filter documents by title or filename..." class="form-input-sm">
-            <div class="filter-pills-group">
-              <button type="button" class="pill-btn active" data-filter="all">All</button>
-              <button type="button" class="pill-btn" data-filter="sample">Sample Corpus</button>
-              <button type="button" class="pill-btn" data-filter="pdf">Uploaded PDFs</button>
-            </div>
-          </div>
-
-          <div class="table-responsive">
-            <table class="corpus-table">
-              <thead>
-                <tr>
-                  <th>Document</th>
-                  <th>Type</th>
-                  <th>Tokens / Words</th>
-                  <th>File Size</th>
-                  <th>Date Added</th>
-                  <th>Status</th>
-                  <th class="text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody id="corpusTableBody">
-                <tr>
-                  <td colspan="7" class="text-center">Loading corpus documents...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==============================================================
-           TAB 3: INDEX EXPLORER
-           ============================================================== -->
-      <section class="tab-panel" id="tab-explorer">
-        <div class="content-card explorer-card">
-          <div class="card-header-bar">
-            <div>
-              <h2 class="card-heading">Inverted Index &amp; Postings Explorer</h2>
-              <p class="card-subtext">Inspect live postings lists, document frequencies, and token positions for any word in the vocabulary.</p>
-            </div>
-            <span class="badge-pill purple">Real Index Inspector</span>
-          </div>
-
-          <!-- Lookup Form -->
-          <div class="explorer-input-row">
-            <input type="text" id="explorerTermInput" placeholder="Enter vocabulary term to inspect (e.g., computer, retrieval, algorithm)..." class="form-input">
-            <button type="button" id="explorerInspectBtn" class="btn btn-primary">Inspect Postings</button>
-          </div>
-
-          <!-- Vocabulary Cloud -->
-          <div class="vocab-cloud-box">
-            <span class="extras-label">Quick Vocabulary Words:</span>
-            <div id="vocabChipsList" class="vocab-chips-list"></div>
-          </div>
-
-          <!-- Postings Result -->
-          <div id="explorerResultArea" class="explorer-results hidden">
-            <div class="term-stats-banner">
-              <div class="term-banner-left">
-                <span class="extras-label">Inspected Term:</span>
-                <strong class="term-display" id="termDisplayName">—</strong>
+            <!-- Staged File Queue -->
+            <div id="stagedQueueBox" class="staged-queue-box hidden">
+              <div class="queue-header-row">
+                <span id="stagedQueueCount" class="queue-title">0 PDF files selected</span>
+                <button type="button" id="clearStagedQueueBtn" class="inline-link-btn danger">Clear Selection</button>
               </div>
-              <div class="term-banner-right">
-                <span class="badge-pill cyan" id="termDocFreqBadge">DF: 0</span>
-                <span class="badge-pill purple" id="termPostingsBadge">Postings: 0</span>
+              <div id="stagedQueueList" class="queue-items-list"></div>
+              <div class="queue-action-row">
+                <button type="button" id="executeUploadBtn" class="btn btn-primary btn-lg">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                  <span>Upload &amp; Add to Inverted Index</span>
+                </button>
               </div>
             </div>
 
-            <div class="postings-stack" id="postingsItemsStack"></div>
-          </div>
-
-          <div id="explorerEmptyArea" class="empty-state-card">
-            <div class="empty-icon-art">📊</div>
-            <h3>Explore Inverted Index Postings</h3>
-            <p>Click any vocabulary chip above or type a word to inspect how terms map to documents and exact token position arrays.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==============================================================
-           TAB 4: SEARCH HISTORY
-           ============================================================== -->
-      <section class="tab-panel" id="tab-history">
-        <div class="content-card history-card">
-          <div class="card-header-bar">
-            <div>
-              <h2 class="card-heading">Search Query History</h2>
-              <p class="card-subtext">Review past searches and re-run any query with one click.</p>
+            <!-- Animated Progress Bar -->
+            <div id="uploadProgressBarBox" class="progress-container-box hidden">
+              <div class="progress-bar-track">
+                <div id="uploadProgressBarFill" class="progress-bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="progress-text-row">
+                <span id="uploadProgressStepLabel">Uploading stream to server...</span>
+                <span id="uploadProgressPercentLabel">0%</span>
+              </div>
             </div>
-            <button type="button" class="btn btn-outline-danger btn-sm" id="clearAllHistoryBtn">Clear History</button>
+
+            <!-- Upload Feedback Banner -->
+            <div id="uploadStatusBanner" class="system-alert-notice hidden"></div>
           </div>
 
-          <div id="historyListContainer" class="history-list-stack">
-            <div class="empty-state-card">
-              <div class="empty-icon-art">🕒</div>
-              <h3>No Past Queries Yet</h3>
-              <p>Searches executed in the search engine will automatically appear here.</p>
+          <!-- Document Corpus Management Table -->
+          <div class="standard-panel-card">
+            <div class="panel-card-header">
+              <div>
+                <h2 class="panel-card-title">Indexed Document Corpus</h2>
+                <p class="panel-card-desc">Active corpus documents. Uploaded PDFs can be deleted with one click, while sample documents remain protected.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="refreshCorpusTableBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <span>Refresh</span>
+              </button>
+            </div>
+
+            <!-- Toolbar Search & Filter -->
+            <div class="corpus-table-toolbar">
+              <div class="toolbar-search-input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="corpusFilterInput" placeholder="Filter documents by title or filename..." class="filter-search-input">
+              </div>
+              <div class="filter-pills-bar">
+                <button type="button" class="corpus-filter-pill active" data-filter="all">All Documents</button>
+                <button type="button" class="corpus-filter-pill" data-filter="sample">Sample Corpus</button>
+                <button type="button" class="corpus-filter-pill" data-filter="pdf">Uploaded PDFs</button>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-scroll-container">
+              <table class="saas-data-table">
+                <thead>
+                  <tr>
+                    <th>Document</th>
+                    <th>Type</th>
+                    <th>Token Count</th>
+                    <th>File Size</th>
+                    <th>Date Added</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="corpusDataTableBody">
+                  <tr>
+                    <td colspan="7" class="empty-table-cell">Loading document corpus...</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        <!-- ==============================================================
+             PAGE 4: INDEX EXPLORER
+             ============================================================== -->
+        <section class="page-panel" id="page-explorer">
+          <div class="standard-panel-card">
+            <div class="panel-card-header">
+              <div>
+                <h2 class="panel-card-title">Inverted Index &amp; Postings Explorer</h2>
+                <p class="panel-card-desc">Inspect the underlying positional inverted index. Query any word from the vocabulary to view posting lists, document frequencies, and exact token offsets.</p>
+              </div>
+              <span class="badge-pill cyan">Live Inverted Index Data</span>
+            </div>
+
+            <!-- Term Search Input -->
+            <div class="explorer-term-search-bar">
+              <div class="term-input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="explorerQueryTermInput" placeholder="Enter vocabulary term to inspect (e.g. computer, algorithm, retrieval)..." class="term-search-input">
+              </div>
+              <button type="button" id="explorerLookupTermBtn" class="btn btn-primary">
+                <span>Inspect Postings</span>
+              </button>
+            </div>
+
+            <!-- Quick Vocabulary Chips -->
+            <div class="vocab-cloud-container">
+              <span class="cloud-label">Sample Vocabulary Terms:</span>
+              <div id="vocabChipsCloud" class="vocab-chips-flex">
+                <div class="skeleton-shimmer-row small"></div>
+              </div>
+            </div>
+
+            <!-- Explorer Result Display -->
+            <div id="explorerResultCanvas" class="explorer-results-canvas hidden">
+              <div class="term-summary-glass-banner">
+                <div class="banner-term-group">
+                  <span class="label-muted">Inspected Term:</span>
+                  <strong class="banner-term-name" id="explorerActiveTermName">—</strong>
+                </div>
+                <div class="banner-metrics-group">
+                  <div class="mini-metric-pill">
+                    <span class="mini-label">Document Frequency (DF):</span>
+                    <strong class="mini-value" id="explorerDocFreqValue">0</strong>
+                  </div>
+                  <div class="mini-metric-pill">
+                    <span class="mini-label">Postings Count:</span>
+                    <strong class="mini-value" id="explorerPostingsCountValue">0</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Postings Cards Stack -->
+              <div class="postings-cards-stack" id="explorerPostingsListContainer"></div>
+            </div>
+
+            <!-- Explorer Empty State -->
+            <div id="explorerInitialEmptyState" class="explorer-empty-placeholder">
+              <div class="empty-canvas-art">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              </div>
+              <h3>Explore Index Postings</h3>
+              <p>Type a word above or click any vocabulary chip to inspect how words map to documents and exact token offsets.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             PAGE 5: QUERY HISTORY
+             ============================================================== -->
+        <section class="page-panel" id="page-history">
+          <div class="standard-panel-card">
+            <div class="panel-card-header">
+              <div>
+                <h2 class="panel-card-title">Search Query History</h2>
+                <p class="panel-card-desc">Review your previously executed queries, retrieved result counts, and execution timestamps. Re-run any previous search with one click.</p>
+              </div>
+              <button type="button" class="btn btn-outline-danger btn-sm" id="clearAllQueryHistoryBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                <span>Clear All History</span>
+              </button>
+            </div>
+
+            <div id="historyRowsContainer" class="history-rows-stack">
+              <div class="history-empty-placeholder">
+                <div class="empty-canvas-art">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3>No Query History Yet</h3>
+                <p>Searches executed in the search console will automatically appear here for easy re-runs.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             PAGE 6: SETTINGS
+             ============================================================== -->
+        <section class="page-panel" id="page-settings">
+          <div class="standard-panel-card">
+            <div class="panel-card-header">
+              <div>
+                <h2 class="panel-card-title">Settings &amp; Preferences</h2>
+                <p class="panel-card-desc">Configure your user interface experience, default search modes, and inspect technical system specifications.</p>
+              </div>
+            </div>
+
+            <div class="settings-sections-wrapper">
+              <!-- Appearance -->
+              <div class="settings-subgroup">
+                <h3 class="subgroup-heading">Appearance &amp; Theme</h3>
+                <div class="settings-item-row">
+                  <div class="item-desc">
+                    <strong>Theme Mode</strong>
+                    <p>Toggle between Dark mode (midnight SaaS aesthetic) and Light mode.</p>
+                  </div>
+                  <div class="theme-choice-buttons">
+                    <button type="button" class="btn-theme-pill active" id="settingThemeDarkBtn">Dark Theme</button>
+                    <button type="button" class="btn-theme-pill" id="settingThemeLightBtn">Light Theme</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Search Defaults -->
+              <div class="settings-subgroup">
+                <h3 class="subgroup-heading">Search Engine Configuration</h3>
+                <div class="settings-item-row">
+                  <div class="item-desc">
+                    <strong>Default Query Mode</strong>
+                    <p>The mode automatically selected when opening the search console.</p>
+                  </div>
+                  <select id="settingDefaultModeSelect" class="styled-dropdown-select">
+                    <option value="boolean">Boolean Retrieval</option>
+                    <option value="wildcard">Wildcard Search</option>
+                    <option value="ranked">Ranked Retrieval (TF-IDF)</option>
+                  </select>
+                </div>
+                <div class="settings-item-row">
+                  <div class="item-desc">
+                    <strong>Results Display Limit</strong>
+                    <p>Maximum number of ranked results displayed before pagination.</p>
+                  </div>
+                  <select id="settingResultsLimitSelect" class="styled-dropdown-select">
+                    <option value="10">10 results</option>
+                    <option value="25">25 results</option>
+                    <option value="50">50 results</option>
+                    <option value="all">Show All</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Technical Specs Card -->
+              <div class="settings-subgroup">
+                <h3 class="subgroup-heading">About This Information Retrieval System</h3>
+                <div class="tech-specs-card">
+                  <div class="specs-two-col-grid">
+                    <div class="spec-tile">
+                      <span class="spec-label">Backend Architecture</span>
+                      <strong class="spec-data">Node.js + Express.js REST API</strong>
+                    </div>
+                    <div class="spec-tile">
+                      <span class="spec-label">Indexing Strategy</span>
+                      <strong class="spec-data">Custom Positional Inverted Index</strong>
+                    </div>
+                    <div class="spec-tile">
+                      <span class="spec-label">Wildcard Algorithm</span>
+                      <strong class="spec-data">Permuterm Index (Cyclic Rotations)</strong>
+                    </div>
+                    <div class="spec-tile">
+                      <span class="spec-label">Ranking Model</span>
+                      <strong class="spec-data">Vector Space Model (TF-IDF &amp; Cosine)</strong>
+                    </div>
+                    <div class="spec-tile">
+                      <span class="spec-label">Boolean Parsing</span>
+                      <strong class="spec-data">Shunting-Yard Infix to RPN Evaluator</strong>
+                    </div>
+                    <div class="spec-tile">
+                      <span class="spec-label">PDF Processing</span>
+                      <strong class="spec-data">Multer + pdf-parse (Up to 100 GB)</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastContainer" class="toast-stack"></div>
+  <!-- DOCUMENT VIEW MODAL -->
+  <div class="modal-backdrop-layer hidden" id="docViewerModal">
+    <div class="modal-dialog-card">
+      <div class="modal-header-bar">
+        <div>
+          <h3 class="modal-doc-title" id="modalDocTitle">Document View</h3>
+          <span class="modal-doc-filename" id="modalDocFilename">—</span>
+        </div>
+        <button type="button" class="modal-close-icon-btn" id="closeDocModalBtn">✕</button>
+      </div>
+      <div class="modal-content-body">
+        <pre class="modal-doc-text" id="modalDocContent"></pre>
+      </div>
+    </div>
+  </div>
 
+  <!-- FLOATING TOAST NOTIFICATION STACK -->
+  <div id="toastNotificationStack" class="floating-toast-stack"></div>
+
+  <!-- SCRIPT -->
   <script src="script.js"></script>
 </body>
 </html>

@@ -110,16 +110,24 @@ Open your browser at:
 
 ---
 
-## 4. How to Use the PDF Upload Feature
+## 4. How to Use the Information Retrieval Platform
 
 1. Open the application at `http://localhost:3000`.
-2. Click on the **"📄 Upload & Manage Documents"** tab at the top.
-3. Click **"Browse Local PDFs"** (or drag & drop PDF files into the dropzone).
-   - You can pick one or multiple `.pdf` files from any folder on your computer.
-4. Review the selected files list with sizes.
-5. Click **"Upload & Add to Index"**.
-6. The progress bar will indicate extraction and indexing status.
-7. Switch back to the **"🔎 Search Engine"** tab and search for any keywords from your uploaded PDFs!
+2. **Search Engine View**:
+   - Select query mode: **Boolean Retrieval**, **Wildcard Search**, or **Ranked Retrieval (TF-IDF)**.
+   - Enter your query (e.g. `computer AND science`, `comput*`, or `machine learning`).
+   - Filter corpus scope: Entire Corpus, Sample Corpus Only, or Uploaded PDFs Only.
+   - Click **Search** or press <kbd>Enter</kbd> (or hit <kbd>Ctrl</kbd> + <kbd>K</kbd> anywhere to focus the search bar).
+3. **Document Library & PDF Ingestion**:
+   - Navigate to **"Document Library"** in the left sidebar.
+   - Click **"Browse Files"** or drag & drop any PDF documents from your computer (supports multi-PDF upload up to **100 GB**).
+   - Click **"Upload & Add to Inverted Index"**. The engine will extract the text, tokenize, and add postings to memory immediately without restarting the server.
+   - View, filter, or delete uploaded documents in the indexed corpus table.
+4. **Index Explorer**:
+   - Navigate to **"Index Explorer"** to inspect the live inverted index.
+   - Type any vocabulary word (or click a sample chip) to view its Document Frequency, exact posting list, and token offset array.
+5. **Theme Switcher**:
+   - Toggle between **Dark Mode** and **Light Mode** using the topbar switch or the Settings page. Preferenced is saved in localStorage.
 
 ---
 
@@ -171,6 +179,7 @@ Open your browser at:
 | `/api/ranked` | `GET` | `?q=machine learning` | Ranks matching documents using TF-IDF and Cosine Similarity |
 | `/api/upload` | `POST` | `multipart/form-data` (`pdfFiles`) | Securely uploads and incrementally indexes one or multiple PDF files |
 | `/api/documents` | `GET` | None | Returns list of all active documents with metadata, token counts, and statuses |
+| `/api/documents/:id` | `GET` | `id` (filename) | Returns full document details including text content |
 | `/api/documents/:id` | `DELETE` | `id` (filename) | Deletes an uploaded PDF from disk and removes its entries from the index |
 | `/api/status` | `GET` | None | Returns corpus statistics (total documents, vocabulary size) |
 | `/api/postings` | `GET` | `?term=computer` | Returns inverted index postings list and token positions for the Index Explorer |

@@ -13,8 +13,8 @@ const PdfProcessor = require('./src/pdfProcessor');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DOCUMENTS_DIR = path.join(__dirname, 'documents');
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
+const DOCUMENTS_DIR = process.env.DOCUMENTS_DIR || path.join(__dirname, 'documents');
+const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(__dirname, 'uploads');
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
 // Ensure uploads directory exists (Render and local compatibility)
@@ -203,6 +203,7 @@ app.get('/api/documents', (req, res) => {
       filename: d.filename,
       originalName: d.originalName || d.filename,
       title: d.title,
+      content: d.content,
       isSample: !!d.isSample,
       canDelete: !d.isSample,
       fileType: d.fileType || 'txt',
@@ -216,6 +217,42 @@ app.get('/api/documents', (req, res) => {
       success: true,
       totalCount: allDocs.length,
       documents: allDocs
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+/**
+ * GET /api/documents/:id
+ * Returns a single document with its full content.
+ */
+app.get('/api/documents/:id', (req, res) => {
+  try {
+    const rawId = req.params.id;
+    const sanitizedId = path.basename(rawId);
+    const doc = indexer.getDocument(sanitizedId);
+
+    if (!doc) {
+      return res.status(404).json({ success: false, error: 'Document not found.' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      document: {
+        id: doc.id,
+        filename: doc.filename,
+        originalName: doc.originalName || doc.filename,
+        title: doc.title,
+        content: doc.content,
+        isSample: !!doc.isSample,
+        canDelete: !doc.isSample,
+        fileType: doc.fileType || 'txt',
+        tokenCount: indexer.getDocLength(doc.id),
+        uploadDate: doc.uploadDate || 'Permanent',
+        fileSize: doc.fileSize ? formatBytes(doc.fileSize) : 'N/A',
+        status: doc.statusMessage || (doc.isSample ? 'Sample Corpus' : 'Indexed')
+      }
     });
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
