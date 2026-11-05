@@ -84,35 +84,10 @@ ir_system_nodejs/
 
 ---
 
-## 3. How to Run Locally
-
-### Prerequisites
-- Node.js (v16 or higher)
-- npm
-
-### Installation & Startup
-```bash
-# 1. Navigate to project folder
-cd "O:\Wsm  Project\ir_system_nodejs"
-
-# 2. Install all dependencies (express, multer, pdf-parse)
-npm install
-
-# 3. (Optional) Run verification test suite
-npm test
-
-# 4. Start the server
-npm start
-```
-
-Open your browser at:
-👉 **[http://localhost:3000](http://localhost:3000)**
-
----
 
 ## 4. How to Use the Information Retrieval Platform
 
-1. Open the application at `http://localhost:3000`.
+1. Open the application at ` https://ir-system-nodejs.onrender.com `.
 2. **Search Engine View**:
    - Select query mode: **Boolean Retrieval**, **Wildcard Search**, or **Ranked Retrieval (TF-IDF)**.
    - Enter your query (e.g. `computer AND science`, `comput*`, or `machine learning`).
@@ -131,44 +106,6 @@ Open your browser at:
 
 ---
 
-## 5. Render.com Deployment & Persistent Storage Guide
-
-### Standard Deployment on Render (Free Tier)
-1. Push your repository to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "Add PDF upload and incremental indexing"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/ir-system-nodejs.git
-   git push -u origin main
-   ```
-2. Log in to [Render.com](https://render.com) and create a **New Web Service**.
-3. Connect your GitHub repository.
-4. Configure:
-   - **Environment**: `Node`
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-   - **Instance Type**: `Free`
-5. Click **Deploy Web Service**.
-
-### ⚠️ Render Storage Limitations & Persistent Disk Configuration
-- **Free Tier Ephemeral Disk**:
-  On Render's free tier, the local filesystem is **ephemeral**. Any uploaded PDFs stored in `uploads/` will be preserved while the instance is active, but if the web service restarts or redeploys, the `uploads/` directory will reset to empty (the pre-bundled sample corpus in `documents/` remains intact).
-- **How to Configure a Render Persistent Disk (For Production)**:
-  1. Upgrade the Render service to an **Individual/Starter** plan.
-  2. Navigate to your Web Service in Render Dashboard $\to$ **Disks** $\to$ **Add Disk**.
-  3. Set:
-     - **Name**: `pdf-uploads-storage`
-     - **Mount Path**: `/var/data/uploads` (or set an environment variable `UPLOADS_DIR=/var/data/uploads`)
-     - **Size**: 1 GB – 10 GB
-  4. In your Render environment variables, add:
-     ```text
-     UPLOADS_DIR=/var/data/uploads
-     ```
-  5. The application will store uploaded PDFs on the persistent disk, surviving all redeployments and restarts indefinitely!
-
----
 
 ## 6. REST API Reference
 
