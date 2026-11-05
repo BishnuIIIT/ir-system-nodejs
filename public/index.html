@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IR Search — Intelligent Information Retrieval Platform</title>
+  <title>IR Search — Information Retrieval System</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,10 +22,15 @@
         </div>
         <span class="logo-text">IR Search</span>
       </div>
-      <button type="button" class="icon-action-btn" id="mobileThemeToggleBtn" aria-label="Toggle Theme">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      </button>
+      <div style="display:flex;align-items:center;gap:0.35rem;">
+        <button type="button" class="icon-action-btn" id="mobileAddPdfBtn" aria-label="Add PDF Document" title="Add PDF">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+        </button>
+        <button type="button" class="icon-action-btn" id="mobileThemeToggleBtn" aria-label="Toggle Theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
     </header>
 
     <!-- MOBILE DRAWER BACKDROP -->
@@ -68,6 +73,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
           <span class="link-label">Document Library</span>
           <span class="nav-badge-count" id="sidebarDocBadge">5</span>
+        </button>
+
+        <button type="button" class="sidebar-quick-add-btn" id="sidebarAddPdfBtn" title="Quick Upload & Add PDF Document">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+          <span class="link-label">+ Add PDF</span>
         </button>
 
         <div class="nav-group-header">ANALYSIS &amp; INDEX</div>
@@ -114,6 +124,12 @@
         </div>
 
         <div class="topbar-actions-group">
+          <!-- Add PDF Quick Action Button -->
+          <button type="button" class="btn btn-primary btn-sm topbar-add-pdf-btn" id="topbarAddPdfBtn" title="Upload & Add PDF Documents">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+            <span>Add PDF</span>
+          </button>
+
           <!-- Global Search Shortcut Bar -->
           <div class="global-search-shortcut" id="globalSearchTrigger" title="Quick Search (Ctrl + K)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -160,7 +176,7 @@
               <span class="status-indicator-dot"></span>
               <span>Positional Index &amp; TF-IDF Vector Space Model</span>
             </div>
-            <h1 class="search-hero-title">Intelligent Information Retrieval</h1>
+            <h1 class="search-hero-title">Information Retrieval System</h1>
             <p class="search-hero-subtitle">Search, discover, and retrieve relevant information from your document collection with sub-millisecond precision.</p>
 
             <!-- Search Mode Switcher Tabs -->
@@ -205,6 +221,10 @@
                 >
                 <button type="button" id="clearSearchQueryBtn" class="query-clear-icon-btn" title="Clear query (Esc)">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <button type="button" id="consoleAddPdfBtn" class="console-add-pdf-btn" title="Upload & Add PDF Documents">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+                  <span class="btn-text">Add PDF</span>
                 </button>
                 <button type="submit" id="triggerSearchBtn" class="command-search-btn">
                   <span>Search</span>

@@ -743,6 +743,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // DOCUMENT LIBRARY & PDF UPLOAD CONTROLLER
   // =========================================================================
+  // Quick "Add PDF" triggers across GUI (Topbar, Console, Sidebar, Mobile)
+  const addPdfButtons = [
+    document.getElementById('topbarAddPdfBtn'),
+    document.getElementById('consoleAddPdfBtn'),
+    document.getElementById('sidebarAddPdfBtn'),
+    document.getElementById('mobileAddPdfBtn')
+  ].filter(Boolean);
+
+  addPdfButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (libraryPdfFileInput) {
+        libraryPdfFileInput.click();
+      }
+    });
+  });
+
   // File Picker Trigger
   if (browsePdfFilesBtn && libraryPdfFileInput) {
     browsePdfFilesBtn.addEventListener('click', (e) => {
@@ -780,13 +797,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       addFilesToStagedQueue(files);
+      switchView('library');
     });
   }
 
   if (libraryPdfFileInput) {
     libraryPdfFileInput.addEventListener('change', (e) => {
       const files = Array.from(e.target.files);
-      addFilesToStagedQueue(files);
+      if (files.length > 0) {
+        addFilesToStagedQueue(files);
+        switchView('library');
+        showToast(`${files.length} PDF file(s) selected. Ready to upload & index.`, 'info');
+      }
       libraryPdfFileInput.value = '';
     });
   }

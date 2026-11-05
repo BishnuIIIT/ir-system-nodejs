@@ -422,6 +422,46 @@ svg {
   border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
 }
 
+.sidebar-quick-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  margin: 0.25rem 0.5rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px dashed rgba(124, 92, 252, 0.45);
+  background: var(--accent-primary-subtle);
+  color: var(--accent-primary);
+  font-weight: 600;
+  font-size: 0.84rem;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  text-align: left;
+}
+.sidebar-quick-add-btn svg {
+  width: 17px;
+  height: 17px;
+  color: var(--accent-primary);
+  transition: color var(--transition-fast);
+}
+.sidebar-quick-add-btn:hover {
+  background: var(--accent-primary);
+  color: #fff;
+  border-color: var(--accent-primary);
+  border-style: solid;
+}
+.sidebar-quick-add-btn:hover svg {
+  color: #fff;
+}
+.sidebar-container.collapsed .sidebar-quick-add-btn {
+  justify-content: center;
+  margin: 0.25rem 0.25rem 0.5rem;
+  padding: 0.65rem 0;
+}
+.sidebar-container.collapsed .sidebar-quick-add-btn .link-label {
+  display: none;
+}
+
 .sidebar-container.collapsed .nav-link-btn {
   justify-content: center;
   padding: 0.75rem;
@@ -559,6 +599,30 @@ svg {
   display: flex;
   align-items: center;
   gap: 0.85rem;
+}
+
+/* Topbar Add PDF Button */
+.topbar-add-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent-primary), #6944fa);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(124, 92, 252, 0.3);
+  transition: all var(--transition-fast);
+}
+.topbar-add-pdf-btn:hover {
+  background: linear-gradient(135deg, #8a6cfc, #7c5cfc);
+  box-shadow: 0 4px 14px rgba(124, 92, 252, 0.45);
+  transform: translateY(-1px);
+}
+.topbar-add-pdf-btn svg {
+  width: 14px;
+  height: 14px;
 }
 
 /* Global Search Trigger Pill */
@@ -1083,6 +1147,41 @@ svg {
 .query-clear-icon-btn svg {
   width: 16px;
   height: 16px;
+}
+
+.console-add-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-right: 0.5rem;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.console-add-pdf-btn svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-danger);
+  transition: transform var(--transition-fast);
+}
+.console-add-pdf-btn:hover {
+  background: var(--accent-primary-subtle);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+.console-add-pdf-btn:hover svg {
+  transform: scale(1.1);
+}
+.console-add-pdf-btn:active {
+  transform: translateY(0);
 }
 
 .command-search-btn {
@@ -2668,6 +2767,13 @@ svg {
     gap: 0.5rem;
     padding: 0.75rem;
   }
+
+  .console-add-pdf-btn {
+    flex: 1;
+    justify-content: center;
+    margin-right: 0;
+  }
+
   .command-search-btn {
     width: 100%;
     justify-content: center;
