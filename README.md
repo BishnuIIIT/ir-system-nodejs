@@ -1,4 +1,4 @@
-# Complete Information Retrieval (IR) System — SaaS Edition
+# Complete Information Retrieval (IR) System
 
 A production-grade, college-level Information Retrieval (IR) platform built using **Node.js, Express.js, HTML5, CSS3, and JavaScript**, featuring a sleek **Linear / Raycast / Notion-inspired SaaS interface**.
 
