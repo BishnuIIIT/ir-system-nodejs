@@ -1,0 +1,12 @@
+{
+  "name": "ir_system_nodejs",
+  "version": "1.0.0",
+  "description": "Complete Information Retrieval System with Positional Inverted Index, Permuterm Wildcard Index, Boolean & Ranked TF-IDF Cosine Ranking",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.3"
+  }
+}

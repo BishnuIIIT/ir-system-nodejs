@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Information Retrieval System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="logo-area">
+        <div class="logo-icon">🔍</div>
+        <div>
+          <h1>Information Retrieval System</h1>
+          <p class="subtitle">Inverted Index • Permuterm Wildcards • Boolean &amp; TF-IDF Cosine Ranking</p>
+        </div>
+      </div>
+      <div class="status-badge">● Online</div>
+    </header>
+
+    <main class="search-card">
+      <div class="mode-selector">
+        <label class="mode-option">
+          <input type="radio" name="searchMode" value="boolean" checked>
+          <span class="mode-btn">Boolean Retrieval</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="searchMode" value="wildcard">
+          <span class="mode-btn">Wildcard Search</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="searchMode" value="ranked">
+          <span class="mode-btn">Ranked Retrieval (TF-IDF)</span>
+        </label>
+      </div>
+
+      <form id="searchForm" class="search-form" onsubmit="return false;">
+        <div class="search-input-wrapper">
+          <input type="text" id="searchInput" class="search-input" placeholder="Search query..." autocomplete="off" autofocus>
+          <button type="button" id="clearBtn" class="clear-input-btn">✕</button>
+        </div>
+        <div class="actions-group">
+          <button type="submit" id="searchBtn" class="btn btn-primary">Search</button>
+          <button type="button" id="resetBtn" class="btn btn-secondary">Clear</button>
+        </div>
+      </form>
+
+      <div class="presets-container">
+        <span class="presets-label">Quick Queries:</span>
+        <div id="queryPills" class="query-pills"></div>
+      </div>
+    </main>
+
+    <div id="loadingIndicator" class="loading-state hidden">
+      <div class="spinner"></div>
+      <span>Searching corpus...</span>
+    </div>
+
+    <div id="errorArea" class="error-banner hidden"></div>
+
+    <section class="results-section">
+      <div id="resultsSummary" class="results-summary hidden">
+        <div class="summary-left">
+          <span id="resultsCount" class="results-count">0 documents found</span>
+          <span id="latencyBadge" class="latency-badge">0.00 ms</span>
+        </div>
+        <div id="wildcardExpansionArea" class="expansion-area hidden">
+          <span class="expansion-title">Permuterm Expansions:</span>
+          <div id="expansionTags" class="expansion-tags"></div>
+        </div>
+      </div>
+      <div id="resultsContainer" class="results-list"></div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
