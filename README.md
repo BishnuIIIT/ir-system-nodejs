@@ -1,8 +1,8 @@
-# Complete Information Retrieval (IR) System with PDF Ingestion
+# Complete Information Retrieval (IR) System — SaaS Edition
 
-A college-level, modular Information Retrieval (IR) System built using **Node.js, Express.js, HTML5, CSS3, and JavaScript**. 
+A production-grade, college-level Information Retrieval (IR) platform built using **Node.js, Express.js, HTML5, CSS3, and JavaScript**, featuring a sleek **Linear / Raycast / Notion-inspired SaaS interface**.
 
-This system implements a custom **Positional Inverted Index**, a **Permuterm Wildcard Index** supporting `*` and `?`, a **Boolean Query Processor** (with `AND`, `OR`, `NOT`, and parenthesized expressions respecting operator precedence), and a **Vector Space Model (TF-IDF with Cosine Similarity)** for ranked retrieval. It features an automated **PDF Ingestion Engine** that extracts text from custom uploaded PDFs, validates signatures, and incrementally updates the inverted index in real-time without server restarts.
+This system implements a custom **Positional Inverted Index**, a **Permuterm Wildcard Index** supporting `*` and `?`, a **Boolean Query Processor** (with `AND`, `OR`, `NOT`, and parenthesized expressions respecting operator precedence), and a **Vector Space Model (TF-IDF with Cosine Similarity)** for ranked retrieval. It includes an automated **PDF Ingestion Engine** that extracts text from custom uploaded PDFs up to **100 GB**, validates signatures, and incrementally updates the inverted index in real-time without server restarts.
 
 ---
 
@@ -11,7 +11,7 @@ This system implements a custom **Positional Inverted Index**, a **Permuterm Wil
 ```text
 ir_system_nodejs/
 ├── package.json                   # Dependencies (express, multer, pdf-parse)
-├── server.js                      # Express API server & routes (/api/search, /api/wildcard, /api/ranked, /api/upload, /api/documents)
+├── server.js                      # Express API server & routes (/api/search, /api/wildcard, /api/ranked, /api/upload, /api/documents, /api/postings)
 ├── test.js                        # CLI verification test suite
 ├── README.md                      # Documentation & Render deployment guide
 │
@@ -22,7 +22,7 @@ ir_system_nodejs/
 │   ├── doc4_machine_learning.txt
 │   └── doc5_wildcard_indexing.txt
 │
-├── uploads/                       # Dedicated directory for uploaded PDFs
+├── uploads/                       # Dedicated directory for uploaded PDFs (up to 100 GB)
 │
 ├── src/                           # Modular backend IR core
 │   ├── documentLoader.js          # Loads sample documents and pre-existing PDFs
@@ -33,10 +33,10 @@ ir_system_nodejs/
 │   ├── queryProcessor.js          # Boolean Shunting-Yard parser & TF-IDF Cosine ranking
 │   └── pdfProcessor.js            # PDF text extraction, signature check & scanned PDF detection
 │
-└── public/                        # Responsive frontend GUI
-    ├── index.html                 # Search engine interface + PDF upload & management tabs
-    ├── style.css                  # Modern UI styles, responsive layout & term highlighting
-    └── script.js                  # Frontend controllers, async fetch API & dynamic DOM rendering
+└── public/                        # Premium SaaS Frontend (Linear/Raycast Design)
+    ├── index.html                 # 7 App Views (Overview, Search, Upload, Library, Explorer, History, Settings)
+    ├── style.css                  # Dark mode default, midnight theme, glassmorphism, responsive drawer
+    └── script.js                  # View router, async API bindings, index inspector, toast engine
 ```
 
 ---
@@ -75,7 +75,7 @@ ir_system_nodejs/
 - Ranks documents by relevance score with percentage confidence.
 
 ### PDF Document Ingestion & Management
-- Secure multi-file PDF upload with **Multer** (20 MB per file limit).
+- Secure multi-file PDF upload with **Multer** (100 GB per file limit).
 - Validates `%PDF-` file signature (magic bytes) to prevent malicious or spoofed files.
 - Extracts text across multi-page PDFs using `pdf-parse`.
 - Gracefully handles scanned / image-only PDFs (explaining that OCR is required).
@@ -173,3 +173,4 @@ Open your browser at:
 | `/api/documents` | `GET` | None | Returns list of all active documents with metadata, token counts, and statuses |
 | `/api/documents/:id` | `DELETE` | `id` (filename) | Deletes an uploaded PDF from disk and removes its entries from the index |
 | `/api/status` | `GET` | None | Returns corpus statistics (total documents, vocabulary size) |
+| `/api/postings` | `GET` | `?term=computer` | Returns inverted index postings list and token positions for the Index Explorer |

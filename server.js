@@ -45,7 +45,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 20 * 1024 * 1024 // 20 MB per file
+    fileSize: 100 * 1024 * 1024 * 1024 // 100 GB per file
   },
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
@@ -105,7 +105,7 @@ app.post('/api/upload', (req, res) => {
     // Handle Multer upload errors
     if (err) {
       const message = err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE'
-        ? 'File exceeds maximum 20MB limit.'
+        ? 'File exceeds maximum 100GB limit.'
         : err.message || 'File upload failed.';
       return res.status(400).json({ success: false, error: message });
     }
@@ -161,7 +161,7 @@ app.post('/api/upload', (req, res) => {
           title: docRecord.title,
           tokenCount: indexResult.tokenCount,
           pages: docRecord.numPages,
-          fileSize: `${(file.size / 1024).toFixed(1)} KB`,
+          fileSize: formatBytes(file.size),
           isScannedOrEmpty: extraction.isScannedOrEmpty,
           status: extraction.statusMessage
         });
@@ -208,7 +208,7 @@ app.get('/api/documents', (req, res) => {
       fileType: d.fileType || 'txt',
       tokenCount: indexer.getDocLength(d.id),
       uploadDate: d.uploadDate || 'Permanent',
-      fileSize: d.fileSize ? `${(d.fileSize / 1024).toFixed(1)} KB` : 'N/A',
+      fileSize: d.fileSize ? formatBytes(d.fileSize) : 'N/A',
       status: d.statusMessage || (d.isSample ? 'Sample Corpus' : 'Indexed')
     }));
 
@@ -366,14 +366,80 @@ app.get('/api/status', (req, res) => {
   return res.status(200).json({
     success: true,
     totalDocuments: indexer.getTotalDocuments(),
-    vocabularySize: indexer.getVocabulary().length
+    vocabularySize: indexer.getVocabulary().length,
+    sampleDocuments: sampleDocs.length,
+    uploadedDocuments: indexer.getTotalDocuments() - sampleDocs.length
   });
 });
 
+/**
+ * GET /api/postings?term=computer
+ * Returns inverted index postings list and token positions for the Index Explorer.
+ */
+app.get('/api/postings', (req, res) => {
+  try {
+    const rawTerm = req.query.term ? req.query.term.trim() : '';
+    const normTerm = normalizer.normalizeToken(rawTerm);
+    const allVocab = indexer.getVocabulary();
+
+    if (!normTerm) {
+      return res.status(200).json({
+        success: true,
+        vocabulary: allVocab.slice(0, 120),
+        totalVocabulary: allVocab.length
+      });
+    }
+
+    const postings = indexer.getPostings(normTerm);
+    const docFrequency = indexer.getDocumentFrequency(normTerm);
+    const formattedPostings = [];
+
+    if (postings) {
+      for (const [docId, positions] of Object.entries(postings)) {
+        const doc = indexer.getDocument(docId);
+        formattedPostings.push({
+          docId,
+          title: doc ? (doc.title || doc.filename) : docId,
+          filename: doc ? doc.filename : docId,
+          isSample: doc ? !!doc.isSample : false,
+          termFrequency: positions.length,
+          positions: positions
+        });
+      }
+      formattedPostings.sort((a, b) => b.termFrequency - a.termFrequency);
+    }
+
+    return res.status(200).json({
+      success: true,
+      term: normTerm,
+      docFrequency,
+      totalPostings: formattedPostings.length,
+      postings: formattedPostings
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Helper to format file sizes up to GB / TB
+function formatBytes(bytes) {
+  if (!bytes || bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
 // Start Server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`=======================================================`);
   console.log(` IR System Server running at: http://localhost:${PORT}`);
   console.log(` Uploads directory: ${UPLOADS_DIR}`);
+  console.log(` Max File Size: 100 GB per file`);
   console.log(`=======================================================`);
 });
+
+// Disable socket timeouts for large file uploads
+server.timeout = 0;
+server.headersTimeout = 0;
+server.requestTimeout = 0;

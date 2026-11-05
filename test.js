@@ -189,6 +189,19 @@ assert(
 );
 
 // ----------------------------------------------------
+// TEST GROUP 5: INDEX EXPLORER POSTINGS INSPECTOR
+// ----------------------------------------------------
+console.log('\n--- 5. Testing Index Explorer Postings ---');
+
+const termPostings = indexer.getPostings('computer');
+const docFreq = indexer.getDocumentFrequency('computer');
+assert(
+  'Index Explorer Postings for "computer"',
+  termPostings !== null && docFreq >= 4,
+  `Found in ${docFreq} documents with token positions: [${Object.keys(termPostings).join(', ')}]`
+);
+
+// ----------------------------------------------------
 // SUMMARY
 // ----------------------------------------------------
 console.log('\n====================================================');
