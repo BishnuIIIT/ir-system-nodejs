@@ -1,10 +1,19 @@
-﻿class WildcardProcessor {
+class WildcardProcessor {
+  /**
+   * @param {string[]} vocabulary - Array of all unique vocabulary terms
+   * @param {import('./indexer')} indexer - Indexer instance
+   */
   constructor(vocabulary, indexer) {
     this.indexer = indexer;
     this.permutermIndex = [];
     this.buildPermutermIndex(vocabulary);
   }
 
+  /**
+   * Rebuilds the Permuterm Index from the vocabulary.
+   * Appends '$' to each term and stores all cyclic rotations.
+   * @param {string[]} vocabulary
+   */
   buildPermutermIndex(vocabulary) {
     this.permutermIndex = [];
     for (const term of vocabulary) {
@@ -21,14 +30,30 @@
     this.permutermIndex.sort((a, b) => a.rotation.localeCompare(b.rotation));
   }
 
+  /**
+   * Updates the Permuterm index when vocabulary changes after document upload/delete.
+   * @param {string[]} vocabulary
+   */
+  updateVocabulary(vocabulary) {
+    this.buildPermutermIndex(vocabulary);
+    console.log(`[WildcardProcessor] Permuterm Index updated with ${this.permutermIndex.length} rotations for ${vocabulary.length} terms.`);
+  }
+
+  /**
+   * Converts a wildcard pattern into a regex and searches the Permuterm Index.
+   * Supports '*' (zero or more characters) and '?' (exactly one character).
+   * @param {string} wildcardQuery
+   * @returns {{ query: string, expandedTerms: string[], totalHits: number, matchingDocs: Array }}
+   */
   processWildcardQuery(wildcardQuery) {
     const cleanPattern = wildcardQuery.toLowerCase().trim();
     if (!cleanPattern) {
-      return { query: wildcardQuery, expandedTerms: [], matchingDocs: [] };
+      return { query: wildcardQuery, expandedTerms: [], totalHits: 0, matchingDocs: [] };
     }
 
     const matchedTermsSet = new Set();
 
+    // Strategy 1: Classical Permuterm Rotation Search for single '*' patterns
     if (cleanPattern.includes('*') && !cleanPattern.includes('?')) {
       const starCount = (cleanPattern.match(/\*/g) || []).length;
       if (starCount === 1) {
@@ -38,10 +63,13 @@
         const suffix = cleanPattern.slice(starIdx + 1);
 
         if (prefix && !suffix) {
+          // X* -> $X*
           rotationPrefix = '$' + prefix;
         } else if (!prefix && suffix) {
+          // *X -> X$*
           rotationPrefix = suffix + '$';
         } else if (prefix && suffix) {
+          // X*Y -> Y$X*
           rotationPrefix = suffix + '$' + prefix;
         }
 
@@ -53,6 +81,7 @@
       }
     }
 
+    // Strategy 2: General Regex Matching for complex patterns (e.g. c*mput*, te?t, multiple *)
     if (matchedTermsSet.size === 0 || cleanPattern.includes('?') || (cleanPattern.match(/\*/g) || []).length > 1) {
       let regexStr = '^';
       for (let i = 0; i < cleanPattern.length; i++) {

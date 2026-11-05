@@ -1,12 +1,26 @@
 {
   "name": "ir_system_nodejs",
-  "version": "1.0.0",
-  "description": "Complete Information Retrieval System with Positional Inverted Index, Permuterm Wildcard Index, Boolean & Ranked TF-IDF Cosine Ranking",
+  "version": "1.1.0",
+  "description": "Complete Information Retrieval System with Positional Inverted Index, Permuterm Wildcard Index, Boolean & Ranked TF-IDF Cosine Ranking, and PDF Upload & Extraction",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node test.js"
   },
+  "keywords": [
+    "information-retrieval",
+    "inverted-index",
+    "permuterm-index",
+    "boolean-search",
+    "tf-idf",
+    "pdf-upload",
+    "pdf-parse"
+  ],
+  "author": "IR System Developer",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.22.3"
+    "express": "^4.22.3",
+    "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^1.1.1"
   }
 }
